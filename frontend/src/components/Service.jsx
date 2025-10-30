@@ -72,20 +72,20 @@ function Service() {
             <h3 className=" text-xl md:text-2xl font-medium text-gray-500 ml-5 lg:ml-30">Making every journey memorable with comfort, care, and customization.</h3>
             
             <div ref={txt8} className=" mt-10 flex items-center grid place-items-center lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 md:grid-cols-2 justify-center gap-5">
-                <div className="  hover:shadow-md shadow-black cursor-pointer hover:scale-105 transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
-                    <img src="/india.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
+                <div className="    transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
+                    <img src="https://res.cloudinary.com/demon35hl/image/upload/v1761841287/india_prl1mv.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
                     <div className=" absolute bottom-5 left-0 right-0 mx-auto backdrop-blur-3xl   h-12 w-[60%] bg-white rounded-xl flex items-center justify-center"><h1 className=" text-black font-bold" >Domestic Packages</h1></div>
                 </div>
-                <div className="hover:shadow-md shadow-black cursor-pointer hover:scale-105 transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
-                    <img src="/Inter.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
+                <div className=" transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
+                    <img src="https://res.cloudinary.com/demon35hl/image/upload/v1761841264/Inter_nbsowm.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
                     <div className=" absolute bottom-5 left-0 right-0 mx-auto backdrop-blur-3xl   h-12 w-[60%] bg-white rounded-xl flex items-center justify-center"><h1 className=" text-black font-bold" >International Packages</h1></div>
                 </div>
-                <div className="hover:shadow-md shadow-black cursor-pointer hover:scale-105 transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
-                    <img src="/cab.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
+                <div className=" transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
+                    <img src="https://res.cloudinary.com/demon35hl/image/upload/v1761841233/cab_srzzvm.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
                     <div className=" absolute bottom-5 left-0 right-0 mx-auto backdrop-blur-3xl   h-12 w-[60%] bg-white rounded-xl flex items-center justify-center"><h1 className=" text-black font-bold" >Cabs</h1></div>
                 </div>
-                <div className="hover:shadow-md shadow-black cursor-pointer hover:scale-105 transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
-                    <img src="/visa.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
+                <div className=" transition-all w-80 h-96 bg-gray-400 rounded-xl relative">
+                    <img src="https://res.cloudinary.com/demon35hl/image/upload/v1761841244/visa_cvvxsm.jpg" className=" h-full w-full rounded-xl object-cover" alt="" />
                     <div className=" absolute bottom-5 left-0 right-0 mx-auto backdrop-blur-3xl   h-12 w-[60%] bg-white rounded-xl flex items-center justify-center"><h1 className=" text-black font-bold" >VISA/Flights</h1></div>
                     
                 </div>

@@ -1,4 +1,5 @@
 
+import Footer from "../components/Footer";
 import Form from "../components/Form";
 import Hero from "../components/Hero";
 import Hero2 from "../components/Hero2";
@@ -24,6 +25,9 @@ function Home(){
             <Why/>
             <Testimonial/>
             <Last/>
+            <footer>
+                <Footer/>
+            </footer>
             
             
             

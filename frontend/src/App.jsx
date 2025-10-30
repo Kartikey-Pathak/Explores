@@ -1,16 +1,30 @@
 
 import { Route, Router, Routes } from 'react-router-dom'
+import { Suspense, lazy } from "react";
 import './App.css'
-import Home from './pages/Home'
 
+
+// Lazy load pages
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Enquiry = lazy(() => import("./pages/Enquiry.jsx"));
+const Info = lazy(() => import("./pages/Info.jsx"));
 function App() {
 
   return (
     <>
-      <Routes>
-        <Route element={<Home />} path='/' />
-
-      </Routes>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center min-h-screen text-xl font-semibold">
+            Loading...
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/enquiry" element={<Enquiry />} />
+          <Route path="/packages/:city" element={<Info />} />
+        </Routes>
+      </Suspense>
 
 
     </>

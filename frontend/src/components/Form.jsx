@@ -1,67 +1,193 @@
 import { useEffect, useState } from "react";
 
-function Form(){
-     const [today,settoday]=useState(0);
-     useEffect(()=>{
-        settoday(new Date().toISOString().split("T")[0]);
+function Form() {
+    const [btn,setbtn]=useState(false);
+    const [today, setToday] = useState("");
+    const [form, setForm] = useState({
+        name: "",
+        phone: "",
+        email: "",
+        date: "",
+        guests: "1",
+    });
+    const [errors, setErrors] = useState({});
 
-     },[])
+    useEffect(() => {
+        setToday(new Date().toISOString().split("T")[0]);
+    }, []);
 
-     function handle(e){
+    // ✅ Handle field changes
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+    }
+
+    // ✅ Validate before sending
+    function validate() {
+        const newErrors = {};
+        if (!form.name.trim()) newErrors.name = "Full name is required";
+        if (!form.phone.trim()) newErrors.phone = "Phone number is required";
+        else if (!/^[0-9]{10}$/.test(form.phone))
+            newErrors.phone = "Enter a valid 10-digit number";
+        if (!form.date) newErrors.date = "Please select a tour date";
+        if (!form.guests) newErrors.guests = "Please select number of guests";
+        return newErrors;
+    }
+
+    // ✅ Submit handler
+    function handleSubmit(e) {
         e.preventDefault();
-     }
-     
-    return(
-        <section className=" w-full  flex items-center justify-center">
-            <div className="  h-fit w-full items-center flex flex-col gap-5 bg-[#F2F2F6]">
-                <h1 className=" text-3xl m-7 text-black font-bold mt-10">Ask Query</h1>
+        const validationErrors = validate();
+        setErrors(validationErrors);
 
-                <form onSubmit={handle} className=" w-full md:w-[90%] h-full  justify-self-center place-items-center grid md:grid-cols-4 flex-col gap-5">
+        if (Object.keys(validationErrors).length > 0) return;
 
-                    <div className=" w-[80%] md:w-full h-12 flex flex-col justify-center gap-1">
-                        <span className=" font-semibold text-gray-400 ml-4"><i className=" text-gray-400 fa-solid fa-user"></i> Full Name</span>
-                        <input type="text" placeholder="Enter Name" className=" cursor-pointer hover:border-black transition-all outline-none p-4 font-semibold text-black border-3 border-gray-500 rounded-3xl" />
-                    </div>
-                    <div className=" w-[80%] md:w-full mt-15 md:mt-0 h-12 flex flex-col justify-center gap-1">
-                        <span className=" font-semibold text-gray-400 ml-4"><i class="fa-solid fa-mobile text-gray-400"></i> Phone Number</span>
-                        <input type="number" placeholder="Mobile No." className=" hover:border-black transition-all outline-none p-4 font-semibold text-black border-3 border-gray-500 rounded-3xl" />
-                    </div>
-                      <div className=" w-[80%] md:w-full mt-15 md:mt-0 h-12 flex flex-col justify-center gap-1">
-                        <span className=" font-semibold text-gray-400 ml-4"><i className=" text-gray-400 fa-solid fa-envelope"></i> Email ID</span>
-                        <input type="email" placeholder="Email" className=" outline-none p-4 font-semibold text-black border-3 hover:border-black transition-all border-gray-500 rounded-3xl" />
-                    </div>
-                      <div className=" w-[80%] md:w-full mt-15 md:mt-0 h-12 flex flex-col justify-center gap-1">
-                        <span className=" font-semibold text-gray-400 ml-4"><i className=" text-gray-400 fa-solid fa-calendar-days"></i> Tour Date</span>
-                        <input type="date"   min={today} onClick={(e) => e.target.showPicker()} placeholder="Select Date" className=" outline-none p-4 font-semibold text-black border-3 hover:border-black transition-all border-gray-500 rounded-3xl" />
-                    </div>
-                        <div className=" w-[80%] md:w-full mt-15 md:mt-0 h-12 flex flex-col justify-center gap-1">
-                        <span className=" font-semibold text-gray-400 ml-4"><i className=" text-gray-400 fa-solid fa-calendar-days"></i>Guests</span>
-                    <select name="people"  className=" hover:border-black transition-all outline-none p-4 font-semibold text-black border-3 border-gray-500 rounded-3xl" id="">
-                        <option value="1" selected>01</option>
-                        <option value="2" >02</option>
-                        <option value="3" >03</option>
-                        <option value="4" >04</option>
-                        <option value="5" >05</option>
-                        <option value="6" >06</option>
-                        <option value="7" >07</option>
-                        <option value="8" >08</option>
-                        <option value="9" >09</option>
-                        <option value="10" >10</option>
-                        <option value="10+" >10+</option>
-                    </select>
+        // Construct message
+        let message = `Hello! I'd like to ask a query:%0A
+*Name:* ${form.name}%0A
+*Phone:* ${form.phone}%0A
+${form.email ? `*Email:* ${form.email}%0A` : ""}
+*Tour Date:* ${form.date}%0A
+*Guests:* ${form.guests}`;
+
+        // Your WhatsApp number (include country code, e.g. +91 for India)
+        const phoneNumber = "918881509360";
+        const url = `https://wa.me/${phoneNumber}?text=${message}`;
+
+        // Open WhatsApp
+        window.open(url, "_blank");
+    }
+
+    return (
+        <section className="w-full flex items-center justify-center">
+            <div className="h-fit w-full flex flex-col gap-5 bg-[#F2F2F6] items-center">
+                <h1 className="text-3xl m-7 text-black font-bold mt-10">Ask Query</h1>
+
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full md:w-[90%] grid md:grid-cols-4 gap-5 place-items-center"
+                >
+                    {/* Full Name */}
+                    <div className="w-[80%] md:w-full flex flex-col gap-1">
+                        <span className="font-semibold text-gray-400 ml-4">
+                            <i className="fa-solid fa-user text-gray-400"></i> Full Name
+                        </span>
+                        <input
+                            type="text"
+                            name="name"
+                            value={form.name}
+                            onChange={handleChange}
+                            placeholder="Enter Name"
+                            className={`p-4 font-semibold text-black border-2 rounded-3xl outline-none transition-all ${errors.name ? "border-red-500" : "border-gray-500 hover:border-black"
+                                }`}
+                        />
+                        {errors.name && (
+                            <p className="text-red-500 text-sm ml-4">{errors.name}</p>
+                        )}
                     </div>
 
-                    <div className=" h-20 mt-5 w-full flex items-center justify-center">
-                        <button type="submit" className=" cursor-pointer hover:bg-black/80 transition-all h-15 md:w-[90%] w-[70%] bg-black text-center rounded-4xl">Submit</button>
+                    {/* Phone Number */}
+                    <div className="w-[80%] md:w-full flex flex-col gap-1">
+                        <span className="font-semibold text-gray-400 ml-4">
+                            <i className="fa-solid fa-mobile text-gray-400"></i> Phone Number
+                        </span>
+                        <input
+                            type="tel"
+                            name="phone"
+                            value={form.phone}
+                            onChange={handleChange}
+                            placeholder="Mobile No."
+                            className={`p-4 font-semibold text-black border-2 rounded-3xl outline-none transition-all ${errors.phone ? "border-red-500" : "border-gray-500 hover:border-black"
+                                }`}
+                        />
+                        {errors.phone && (
+                            <p className="text-red-500 text-sm ml-4">{errors.phone}</p>
+                        )}
                     </div>
-                    
+
+                    {/* Email (optional) */}
+                    <div className="w-[80%] md:w-full flex flex-col gap-1">
+                        <span className="font-semibold text-gray-400 ml-4">
+                            <i className="fa-solid fa-envelope text-gray-400"></i> Email ID (optional)
+                        </span>
+                        <input
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                            className="p-4 font-semibold text-black border-2 rounded-3xl outline-none transition-all border-gray-500 hover:border-black"
+                        />
+                    </div>
+
+                    {/* Tour Date */}
+                    <div className="w-[80%] md:w-full flex flex-col gap-1">
+                        <span className="font-semibold text-gray-400 ml-4">
+                            <i className="fa-solid fa-calendar-days text-gray-400"></i> Tour Date
+                        </span>
+                        <input
+                            type="date"
+                            name="date"
+                            value={form.date}
+                            onChange={handleChange}
+                            min={today}
+                            onClick={(e) => e.target.showPicker()}
+                            className={`p-4 font-semibold text-black border-2 rounded-3xl outline-none transition-all ${errors.date ? "border-red-500" : "border-gray-500 hover:border-black"
+                                }`}
+                        />
+                        {errors.date && (
+                            <p className="text-red-500 text-sm ml-4">{errors.date}</p>
+                        )}
+                    </div>
+
+                    {/* Guests */}
+                    <div className="w-[80%] md:w-full flex flex-col gap-1">
+                        <span className="font-semibold text-gray-400 ml-4">
+                            <i className="fa-solid fa-users text-gray-400"></i> Guests
+                        </span>
+                        <select
+                            name="guests"
+                            value={form.guests}
+                            onChange={handleChange}
+                            className={`p-4 font-semibold text-black border-2 rounded-3xl outline-none transition-all ${errors.guests ? "border-red-500" : "border-gray-500 hover:border-black"
+                                }`}
+                        >
+                            {[...Array(10)].map((_, i) => (
+                                <option key={i + 1} value={i + 1}>
+                                    {String(i + 1).padStart(2, "0")}
+                                </option>
+                            ))}
+                            <option value="10+">10+</option>
+                        </select>
+                        {errors.guests && (
+                            <p className="text-red-500 text-sm ml-4">{errors.guests}</p>
+                        )}
+                    </div>
+
+                    {/* Submit */}
+                    <div className="h-20 mt-5 w-full flex items-center justify-center col-span-full">
+                        <button
+                           onClick={
+                            ()=>{
+                                setbtn(true);
+                                setTimeout(() => {
+                                    setbtn(false);
+                                }, 1000);
+
+                            }
+                        }
+                            type="submit"
+                            className={`cursor-pointer hover:bg-black/80 transition-all h-15 md:w-[30%] w-[70%] ${btn?"bg-black/80":"bg-black"} text-white text-lg font-semibold rounded-3xl py-2`}
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </form>
-                <div className=" h-12">
 
-                </div>
-
+                <div className="h-12"></div>
             </div>
         </section>
-    )
+    );
 }
-export default  Form;
+
+export default Form;
