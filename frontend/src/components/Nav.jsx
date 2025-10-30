@@ -16,7 +16,7 @@ function Nav() {
 
     }, [])
     return (
-        <div className=" fixed top-0 z-50  w-full flex items-center  ">
+        <div className=" absolute top-0 z-50  w-full flex items-center  ">
             {windowWidth > 1100 ?
                 <div className="navbar bg-black/95 h-16 w-full backdrop-blur-2xl ">
                     <div className=" flex items-center justify-center h-full w-24">
@@ -27,58 +27,33 @@ function Nav() {
                     </div>
                     <div className="flex-none">
                         <ul className="menu menu-horizontal px-1 gap-25">
-                            <li className=" text-xl text-white underline"><a href="#">Home</a></li>
+                            <li className=" text-xl text-white"><a href="/">Home</a></li>
                             <li className=" text-xl text-white"><a href="#pricing-section">About</a></li>
+                            <li className=" text-xl text-white"><Link >Domestic Tours</Link></li>
+                            <li className=" text-xl text-white"><Link >International Tours</Link></li>
 
-                            <li>
-                                <details>
-                                    <summary className=" text-xl text-white">Tours</summary>
-                                    <ul className="bg-black/80 rounded-t-none p-2 w-60">
-                                        <li className=" text-xl p-1"><Link >Domestic Tours</Link></li>
-                                        <li className=" text-xl p-1"><Link >International Tours</Link></li>
-                                    </ul>
-                                </details>
-                            </li>
                         </ul>
                     </div>
-                </div> : <div className="navbar bg-black/90 h-16 w-full backdrop-blur-2xl">
-                  <div className=" flex items-center justify-center h-full w-24">
+                </div> : <div className=" bg-black/90 h-16 w-full flex justify-between ">
+                    <div className=" flex items-center justify-center h-full w-[5rem] ">
                         <img src="/logo.png" className=" h-full w-full object-cover" alt="" />
                     </div>
-                    <div className="flex-none">
-                        <div className="flex-none">
-                            {windowWidth <= 1100 && (
-                                <div className="drawer">
-                                    <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-                                    <div className="drawer-content">
-                                        <label htmlFor="my-drawer" className="drawer-button p-2">
-                                            <i className="text-2xl font-semibold text-white fa-solid fa-bars"></i>
-                                        </label>
-                                    </div>
-                                    <div className="drawer-side">
-                                        <label htmlFor="my-drawer" className="drawer-overlay"></label>
-                                        <ul className="menu bg-base-200 text-base-content min-h-full w-60 p-4">
-                                            <li className=" text-xl"><a href="#">Home</a></li>
-                                            <li className=" text-xl"><a href="#pricing-section">Pricings</a></li>
-                                            <li>
-                                                <details>
-                                                    <summary className=" text-xl">Rent Cars</summary>
-                                                    <ul className="bg-base-100 rounded-t-none p-2 w-32">
-                                                        <li className=" text-xl p-1"><Link to={"/cars/swift"}>Swift</Link></li>
-                                                        <li className=" text-xl p-1"><Link to={"/cars/ertiga"}>Ertiga</Link></li>
-                                                        <li className=" text-xl p-1"><Link to={"/cars/bus"}>Bus</Link></li>
-                                                        <li className=" text-xl p-1"><Link to={"/cars/innova"}>Innova</Link></li>
-                                                        <li className=" text-xl p-1"><Link to={"/cars/amaze"}>Amaze</Link></li>
-                                                    </ul>
-                                                </details>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            )}
+                    <div className="flex flex-row gap-5 justify-end items-center p-5">
+                        <Link><h1 className=" font-semibold text-white text-xl">Home</h1></Link>
+                        <Link><h1 className=" font-semibold text-white text-xl">About</h1></Link>
+                        <div className=" w-full flex items-center justify-center">
+                        <details className="dropdown  ">
+                            <summary className="btn shadow-none bg-transparent relative  text-white border-none"><i className=" text-white font-bold text-2xl fa-solid fa-bars"></i></summary>
+                            <ul className="menu absolute top-12 right-0 dropdown-content bg-base-100 rounded-box z-50 w-52 p-2 shadow-md">
+                                <li><Link >Domestic Tours</Link></li>
+                                <li><Link >International Tours</Link></li>
+                            </ul>
+                        </details>
                         </div>
 
+
                     </div>
+
                 </div>
             }
 

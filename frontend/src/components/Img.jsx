@@ -24,7 +24,7 @@ function Img() {
     }, [index]);
 
     return (
-        <section className="w-full mt-15 h-fit lg:h-[82vh] overflow-hidden flex items-center justify-center">
+        <section className="w-full mt-15 h-screen lg:h-[82vh] overflow-hidden flex items-center justify-center">
             <div className="flex items-center justify-center relative h-full w-full">
 
 
